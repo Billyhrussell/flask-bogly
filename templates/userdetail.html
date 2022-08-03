@@ -3,17 +3,17 @@
 
 {% block content %}
 
-  <h1> {{ name }}</h1>
+  <h1> {{ user.first_name }} {{user.last_name}}</h1>
 
-  <img src="{{ name.img_url }}" alt="">
+  <img src="{{ user.img_url }}" alt="">
 
-  <form action="">
+  <form action="/users/{{user.id}}/edit" method = "GET">
     <button>
       Edit
     </button>
   </form>
 
-  <form action="">
+  <form action="/users/{{user.id}}/delete" method = "POST">
     <button>
       Delete
     </button>

@@ -5,17 +5,20 @@
 
   <h1>Users</h1>
 
-  <form action="">
+  <form action="/users/new" method = "GET">
     {% for user in users %}
     <div>
       <ul>
         <li>
-          <a href= {{ user.img_url }}> {{ user.first_name }} {{user.last_name}} </a>
+          <a href= '/users/{{user.id}}'> {{ user.first_name }} {{user.last_name}} </a>
         </li>
       </ul>
     </div>
     {% endfor %}
 
+    <button>
+      Add User
+    </button>
   </form>
 
 {% endblock %}

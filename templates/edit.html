@@ -6,21 +6,23 @@
 
   <h1>Edit a user</h1>
 
-  <form action="">
+  <form action="/users/{{user.id}}/edit" method = "POST">
 
     <div>
       <label for = "first-name"> First Name </label>
-      <input type="text" name="first-name" placeholder="Enter a first name">
+      <input type="text" name="first-name" value="{{user.first_name}}">
 
       <label for = "last-name"> Last Name </label>
-      <input type="text" name="last-name" placeholder="Enter a last name">
+      <input type="text" name="last-name" value="{{user.last_name}}">
 
       <label for = "image-url"> Image URL </label>
-      <input type="url" name="image-url" placeholder="Provide an image of this user">
+      <input type="url" name="image-url" value="{{user.img_url}}">
     </div>
 
-    <button>
-      Add
+    <a href="/users/{{user.id}}">Cancel</a>
+
+    <button >
+      Save
     </button>
 
   </form>
