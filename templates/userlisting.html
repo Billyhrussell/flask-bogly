@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 {% block title %} User Listing {% endblock %}
 
 {% block content %}
@@ -5,10 +6,12 @@
   <h1>Users</h1>
 
   <form action="">
-    {% for name in user_list %}
+    {% for user in users %}
     <div>
       <ul>
-        <li> <a href= {{ name.img_url }}> {{ name }} </a> </li>
+        <li>
+          <a href= {{ user.img_url }}> {{ user.first_name }} {{user.last_name}} </a>
+        </li>
       </ul>
     </div>
     {% endfor %}
