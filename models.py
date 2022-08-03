@@ -1,12 +1,9 @@
 """Models for Blogly."""
 
 from flask_sqlalchemy import SQLAlchemy
-from app import app
+
 db = SQLAlchemy()
 
-from flask_debugtoolbar import DebugToolbarExtension
-app.config['SECRET_KEY'] = "SECRET!"
-debug = DebugToolbarExtension(app)
 
 def connect_db(app):
     """Connect to database."""
@@ -26,5 +23,7 @@ class User(db.Model):
     last_name = db.Column(db.Text,
                             nullable = False)
     img_url = db.Column(db.Text,
-                            nullable = True)
+                            nullable = False,
+                            default = 'https://stanfordopticians.co.uk/wp-content/uploads/2016/04/default-profile.png')
+
 
