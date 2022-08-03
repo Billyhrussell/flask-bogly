@@ -1,0 +1,21 @@
+{% block title %} User Detail {% endblock %}
+
+{% block content %}
+
+  <h1> {{ name }}</h1>
+
+  <img src="{{ name.img_url }}" alt="">
+
+  <form action="">
+    <button>
+      Edit
+    </button>
+  </form>
+
+  <form action="">
+    <button>
+      Delete
+    </button>
+  </form>
+
+{% endblock %}

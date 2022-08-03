@@ -1,0 +1,18 @@
+{% block title %} User Listing {% endblock %}
+
+{% block content %}
+
+  <h1>Users</h1>
+
+  <form action="">
+    {% for name in user_list %}
+    <div>
+      <ul>
+        <li> <a href= {{ name.img_url }}> {{ name }} </a> </li>
+      </ul>
+    </div>
+    {% endfor %}
+
+  </form>
+
+{% endblock %}

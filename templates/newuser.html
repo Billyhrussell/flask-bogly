@@ -1,0 +1,26 @@
+{% block title %} New User Form {% endblock %}
+
+{% block content %}
+
+  <h1>Users</h1>
+
+  <form action="">
+
+    <div>
+      <label for = "first-name"> First Name </label>
+      <input type="text" name="first-name" placeholder="Enter a first name">
+
+      <label for = "last-name"> Last Name </label>
+      <input type="text" name="last-name" placeholder="Enter a last name">
+
+      <label for = "image-url"> Image URL </label>
+      <input type="url" name="image-url" placeholder="Provide an image of this user">
+    </div>
+
+    <button>
+      Add
+    </button>
+
+  </form>
+
+{% endblock %}
