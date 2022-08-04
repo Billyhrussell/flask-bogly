@@ -14,7 +14,7 @@
      By {{ user.first_name }} {{ user.last_name }}
   </div>
   <br>
-  <a href="/users/{{user.id}}">Cancel</a>
+  <a href="/users/{{user.id}}">Go back to {{user.first_name}}'s profile</a>
   <br>
   <form action="/posts/{{post.id}}/edit" method = "GET">
     <button>
