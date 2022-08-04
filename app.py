@@ -17,26 +17,28 @@ db.create_all()
 
 @app.get("/")
 def homepage():
-    """TODO: """
+    """Redirects to a page displaying a list of current users."""
 
     return redirect("/users")
 
 @app.get("/users")
 def user_list():
-    """TODO: """
+    """Displays all current users"""
 
     users = User.query.all()
     return render_template("userlisting.html", users = users)
 
 @app.get("/users/new")
 def add_new_user_form():
-    """TODO: """
+    """Displays a form allowing a new user to be added."""
 
     return render_template("newuser.html")
 
 @app.post("/users/new")
 def add_new_user():
-    #process add form
+    """Once a new user is submitted, processes the form and addes the new user to
+    the user list and redirects back to the user list."""
+
     first_name = request.form['first-name']
     last_name = request.form['last-name']
     img_url = request.form['image-url']
@@ -54,20 +56,23 @@ def add_new_user():
 
 @app.get("/users/<user_id>")
 def display_user(user_id):
-    #show information about user
+    """Upon click on a specific name on user list, displays information about
+    selected user, allowing editting and deletion of user."""
+
     user_information = User.query.get(user_id)
 
     return render_template("userdetail.html", user = user_information)
 
 @app.get("/users/<user_id>/edit")
 def edit_user(user_id):
-    #show the edit page for a user
+    """Displays form allowing user to edit their information."""
     user_information = User.query.get(user_id)
     return render_template("edit.html", user = user_information)
 
 @app.post("/users/<user_id>/edit")
 def update_user(user_id):
-    #process edit form
+    """Upon saving on edit form, proccess the edit form and returns editted user
+    onto the user list, redirects to user list."""
     user = User.query.get(user_id)
 
     user.first_name = request.form['first-name']
@@ -82,7 +87,7 @@ def update_user(user_id):
 
 @app.post("/users/<user_id>/delete")
 def delete_user(user_id):
-    #delete a users information
+    """Upon clicking Delete button, deletes the user and redirects to user list."""
     user = User.query.get(user_id)
 
     db.session.delete(user)

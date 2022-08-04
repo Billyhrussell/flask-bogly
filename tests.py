@@ -58,6 +58,7 @@ class UserViewTestCase(TestCase):
         db.session.rollback()
 
     def test_list_users(self):
+        """Test that users are displayed in a list."""
         with self.client as c:
             resp = c.get("/users")
             self.assertEqual(resp.status_code, 200)
@@ -66,6 +67,7 @@ class UserViewTestCase(TestCase):
             self.assertIn("test_last", html)
 
     def test_new_user_form(self):
+        """Tests that new user form is displayed."""
         with self.client as c:
             resp = c.get('users/new')
             html = resp.get_data(as_text = True)
@@ -74,6 +76,7 @@ class UserViewTestCase(TestCase):
             self.assertIn("placeholder", html)
 
     def test_new_user_submitted(self):
+        """Tests addition of new user from new user form exists on user list."""
         with self.client as c:
             resp = c.post('users/new',
                         data = {'first-name': 'New', 'last-name' : 'User',
@@ -85,6 +88,7 @@ class UserViewTestCase(TestCase):
             self.assertIn('New', html)
 
     def test_user_details(self):
+        """Test that user detail page is displayed"""
         with self.client as c:
             resp = c.get(f'/users/{self.user_id}')
             html = resp.get_data(as_text = True)
@@ -93,6 +97,7 @@ class UserViewTestCase(TestCase):
             self.assertIn('Delete', html)
 
     def test_delete_user(self):
+        """Test that a deleted user does not show up on user list."""
         with self.client as c:
             resp = c.post(f'/users/{self.user_id}/delete', follow_redirects = True)
             html = resp.get_data(as_text = True)
