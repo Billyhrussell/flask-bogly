@@ -54,29 +54,29 @@ def add_new_user():
     #go back to users
     return redirect("/users")
 
-@app.get("/users/<user_id>")
+@app.get("/users/<int:user_id>")
 def display_user(user_id):
     """Upon click on a specific name on user list, displays information about
     selected user, allowing editting and deletion of user."""
 
-    user_information = User.query.get(user_id)
+    user_information = User.query.get_or_404(user_id)
 
     return render_template("userdetail.html", user = user_information)
 
-@app.get("/users/<user_id>/edit")
+@app.get("/users/<int:user_id>/edit")
 def edit_user(user_id):
     """Displays form allowing user to edit their information."""
-    user_information = User.query.get(user_id)
+    user_information = User.query.get_or_404(user_id)
     return render_template("edit.html", user = user_information)
 
-@app.post("/users/<user_id>/edit")
+@app.post("/users/<int:user_id>/edit")
 def update_user(user_id):
     """Upon saving on edit form, proccess the edit form and returns editted user
     onto the user list, redirects to user list."""
     user = User.query.get(user_id)
 
     user.first_name = request.form['first-name']
-    user.last_name = request.form['last-name']
+    user.last_name =  request.form['last-name']
     user.img_url = request.form['image-url']
     #user.img_url = img_url if img_url else None
 
@@ -85,7 +85,7 @@ def update_user(user_id):
 
     return redirect("/users")
 
-@app.post("/users/<user_id>/delete")
+@app.post("/users/<int:user_id>/delete")
 def delete_user(user_id):
     """Upon clicking Delete button, deletes the user and redirects to user list."""
     user = User.query.get(user_id)

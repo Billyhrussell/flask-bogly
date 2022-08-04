@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+DEFAULT_PROFILE_PIC = 'https://stanfordopticians.co.uk/wp-content/uploads/2016/04/default-profile.png'
+
 
 def connect_db(app):
     """Connect to database."""
@@ -24,6 +26,4 @@ class User(db.Model):
                             nullable = False)
     img_url = db.Column(db.Text,
                             nullable = False,
-                            default = 'https://stanfordopticians.co.uk/wp-content/uploads/2016/04/default-profile.png')
-
-
+                            default = DEFAULT_PROFILE_PIC)

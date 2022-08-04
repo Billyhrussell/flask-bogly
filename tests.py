@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from app import app, db
-from models import User
+from models import User, DEFAULT_PROFILE_PIC
 
 # Let's configure our app to use a different database for tests
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///blogly_test"
@@ -35,13 +35,13 @@ class UserViewTestCase(TestCase):
         test_user = User(
             first_name="test_first",
             last_name="test_last",
-            img_url=None,
+            img_url= DEFAULT_PROFILE_PIC,
         )
 
         second_user = User(
             first_name="test_first_two",
             last_name="test_last_two",
-            img_url=None,
+            img_url= DEFAULT_PROFILE_PIC,
         )
 
         db.session.add_all([test_user, second_user])
@@ -78,10 +78,14 @@ class UserViewTestCase(TestCase):
     def test_new_user_submitted(self):
         """Tests addition of new user from new user form exists on user list."""
         with self.client as c:
-            resp = c.post('users/new',
-                        data = {'first-name': 'New', 'last-name' : 'User',
-                                'image-url': ''},
-             follow_redirects = True)
+            resp = c.post(
+                'users/new',
+                data = {
+                    'first-name': 'New',
+                    'last-name' : 'User',
+                    'image-url': ''
+                },
+                follow_redirects = True)
             html = resp.get_data(as_text = True)
 
             self.assertEqual(resp.status_code, 200)
