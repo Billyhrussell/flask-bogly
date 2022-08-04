@@ -124,20 +124,20 @@ def show_post(post_id):
 
     return render_template("postdetail.html")
 
-@app.get("/posts/<int:post-id>/edit")
+@app.get("/posts/<int:post_id>/edit")
 def edit_post(post_id):
     """Show a form to edit post"""
 
     return render_template("editpost.html")
 
-@app.post("/posts/<int:post_id>/edit")
-def get_post_edits(post_id):
-    """Get edit post information and redirect to post view"""
+# @app.post("/posts/<int:post_id>/edit")
+# def get_post_edits(post_id):
+#     """Get edit post information and redirect to post view"""
 
-    return redirect("/posts/<post_id>")
+#     return redirect("/posts/<post_id>")
 
-@app.post("/posts/<int:post_id>/delete")
-def delete_post(post_id):
-    """Delete the post and redirect to user page"""
+# @app.post("/posts/<int:post_id>/delete")
+# def delete_post(post_id):
+#     """Delete the post and redirect to user page"""
 
-    return redirect("/users/<int:user_id>")
+#     return redirect("/users/<int:user_id>")

@@ -48,6 +48,6 @@ class Post(db.Model):
                         default = db.func.now())
     user_id = db.Column(db.Integer,
                         db.ForeignKey('users.id'),
-                        nullable = False,)
+                        nullable = False)
 
     #users = db.relationship('User')
