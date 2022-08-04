@@ -131,7 +131,6 @@ def edit_post(post_id):
     """Show a form to edit post"""
 
     post = Post.query.get_or_404(post_id)
-    # TODO: fix template
 
     return render_template("editpost.html", post = post)
 

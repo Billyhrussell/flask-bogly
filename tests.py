@@ -18,7 +18,7 @@ app.config['DEBUG_TB_HOSTS'] = ['dont-show-debug-toolbar']
 
 db.create_all()
 
-#TODO: make new test case for post routes;
+
 class UserViewTestCase(TestCase):
     """Test views for users."""
 
@@ -54,18 +54,6 @@ class UserViewTestCase(TestCase):
         # value of their id, since it will change each time our tests are run.
         self.user_id = test_user.id
         self.second_user_id = second_user.id
-
-        post_one = Post(
-            title = "test_title",
-            content = "test_content",
-            user_id = self.second_user_id,
-        )
-        # TODO: change name to test post
-
-        db.session.add(post_one)
-        db.session.commit()
-
-        self.post_id = post_one.id
 
     def tearDown(self):
         """Clean up any fouled transaction."""
@@ -123,7 +111,58 @@ class UserViewTestCase(TestCase):
             self.assertEqual(resp.status_code, 200)
             self.assertNotIn("test_first ", html)
 
-    #Part 2 Tests
+
+
+class PostTestCase(TestCase):
+    """Test views for posts."""
+
+    def setUp(self):
+        """Create test client, add sample data."""
+
+        # As you add more models later in the exercise, you'll want to delete
+        # all of their records before each test just as we're doing with the
+        # User model below.
+        Post.query.delete()
+        User.query.delete()
+
+        self.client = app.test_client()
+
+        test_user = User(
+            first_name="test_first",
+            last_name="test_last",
+            img_url= DEFAULT_PROFILE_PIC,
+        )
+
+        second_user = User(
+            first_name="test_first_two",
+            last_name="test_last_two",
+            img_url= DEFAULT_PROFILE_PIC,
+        )
+
+        db.session.add_all([test_user, second_user])
+        db.session.commit()
+
+        # We can hold onto our test_user's id by attaching it to self (which is
+        # accessible throughout this test class). This way, we'll be able to
+        # rely on this user in our tests without needing to know the numeric
+        # value of their id, since it will change each time our tests are run.
+        self.user_id = test_user.id
+        self.second_user_id = second_user.id
+
+        test_post = Post(
+            title = "test_title",
+            content = "test_content",
+            user_id = self.second_user_id,
+        )
+
+        db.session.add(test_post)
+        db.session.commit()
+
+        self.post_id = test_post.id
+
+    def tearDown(self):
+        """Clean up any fouled transaction."""
+        db.session.rollback()
 
     def test_add_post_display(self):
         """Test add post form is displayed"""
@@ -140,16 +179,15 @@ class UserViewTestCase(TestCase):
             resp = c.post(
                     f'/users/{self.second_user_id}/posts/new',
                     data = {
-                        'title' : 'First',
-                        'content' : 'Post I Have Made',
+                        'title' : 'test_add_post',
+                        'content' : 'test_content',
                         'user_id' : self.second_user_id
                     },
                     follow_redirects = True)
             html = resp.get_data(as_text = True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('First', html)
-            #TODO: rename as simple test/title names
+            self.assertIn('test_add_post', html)
 
     def test_delete_post(self):
         """ Test post has been deleted """
@@ -159,4 +197,3 @@ class UserViewTestCase(TestCase):
 
             self.assertEqual(resp.status_code, 200)
             self.assertNotIn("test_title", html)
-
