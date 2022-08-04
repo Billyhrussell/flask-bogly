@@ -28,7 +28,7 @@ class User(db.Model):
                             nullable = False,
                             default = DEFAULT_PROFILE_PIC)
 
-    posts = db.relationship('posts', backref ='users')
+    posts = db.relationship('Post', backref = 'users')
 
 
 
@@ -44,7 +44,10 @@ class Post(db.Model):
     content = db.Column(db.Text,
                         nullable = False)
     created_at = db.Column(db.DateTime,
-                        nullable = False)
+                        nullable = False,
+                        default = db.func.now())
     user_id = db.Column(db.Integer,
                         db.ForeignKey('users.id'),
                         nullable = False,)
+
+    #users = db.relationship('User')
