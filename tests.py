@@ -108,3 +108,8 @@ class UserViewTestCase(TestCase):
 
             self.assertEqual(resp.status_code, 200)
             self.assertNotIn("test_first ", html)
+
+    #Part 2 Tests
+
+    def test_add_post_display(self):
+        """SDFSDFSF"""
