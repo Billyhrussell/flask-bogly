@@ -111,5 +111,39 @@ class UserViewTestCase(TestCase):
 
     #Part 2 Tests
 
-    def test_add_post_display(self):
-        """SDFSDFSF"""
+    # def test_add_post_display(self):
+    #     """Test add post form is displayed"""
+    #     with self.client as c:
+    #         resp = c.get(f'/users/{self.user_id}/posts/new')
+    #         html = resp.get_data(as_text = True)
+
+    #         self.assertEqual(resp.status_code, 200)
+    #         self.assertIn("Save", html)
+
+    # def test_add_post_to_page(self):
+    #     """ Test post was added to page """
+    #     with self.client as c:
+    #         resp = c.post(
+    #                 f'/users/{self.user_id}/posts/new',
+    #                 data = {
+    #                     'title' : 'First',
+    #                     'content' : 'Post I Have Made',
+    #                     'user_id' : self.user_id
+    #                 },
+    #                 follow_redirects = True)
+    #         html = resp.get_data(as_text = True)
+
+    #         self.assertEqual(resp.status_code, 200)
+    #         self.assertIn('First', html)
+
+    # def test_delete_post(self):
+    #     """ Test post has been deleted """
+    #     with self.client as c:
+    #         resp = c.post(f'/posts/{self.post_id}/delete', follow_redirects = True)
+    #         html = resp.get_data(as_text = True)
+
+    #         self.assertEqual(resp.status_code, 200)
+    #         self.assertNotIn("First", html)
+
+
+
