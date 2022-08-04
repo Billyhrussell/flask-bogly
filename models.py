@@ -28,7 +28,7 @@ class User(db.Model):
                             nullable = False,
                             default = DEFAULT_PROFILE_PIC)
 
-    posts = db.relationship('Post', backref = 'users')
+    posts = db.relationship('Post', backref = 'user')
 
 
 
@@ -39,6 +39,7 @@ class Post(db.Model):
     id = db.Column(db.Integer,
                     primary_key = True,
                     autoincrement = True)
+                    #primary key integers default to autoincrement
     title = db.Column(db.Text,
                         nullable = False)
     content = db.Column(db.Text,

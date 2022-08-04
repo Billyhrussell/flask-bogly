@@ -123,30 +123,30 @@ def show_post(post_id):
     """Show a post"""
 
     post = Post.query.get_or_404(post_id)
-    user = User.query.get_or_404(post.user_id)
 
-    return render_template("postdetail.html", post = post, user = user)
+    return render_template("postdetail.html", post = post)
 
 @app.get("/posts/<int:post_id>/edit")
 def edit_post(post_id):
     """Show a form to edit post"""
 
     post = Post.query.get_or_404(post_id)
-    user = User.query.get_or_404(post.user_id)
+    # TODO: fix template
 
-    return render_template("editpost.html", post = post, user = user)
+    return render_template("editpost.html", post = post)
 
 @app.post("/posts/<int:post_id>/edit")
 def get_post_edits(post_id):
     """Get edit post information and redirect to post view"""
 
-    post = Post.query.get(post_id)
+    post = Post.query.get_or_404(post_id)
 
     post.title = request.form['title']
     post.content =  request.form['post-content']
 
     db.session.add(post)
     db.session.commit()
+    # TODO: flash message
 
     return redirect(f"/posts/{post_id}")
 
@@ -154,7 +154,7 @@ def get_post_edits(post_id):
 def delete_post(post_id):
     """Delete the post and redirect to user page"""
 
-    post = Post.query.get(post_id)
+    post = Post.query.get_or_404(post_id)
     user_id = post.user_id
 
     db.session.delete(post)
