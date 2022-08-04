@@ -109,35 +109,56 @@ def add_post_to_page(user_id):
     user = User.query.get_or_404(user_id)
 
     title = request.form['title']
-    content = request.form['post-content']
+    content = request.form['content']
 
     new_post = Post(title = title, content = content, user_id = user_id)
 
     db.session.add(new_post)
     db.session.commit()
 
-    return redirect("/users/<int:user_id>")
+    return redirect(f"/users/{user_id}")
 
 @app.get("/posts/<int:post_id>")
 def show_post(post_id):
     """Show a post"""
 
-    return render_template("postdetail.html")
+    post = Post.query.get_or_404(post_id)
+    user = User.query.get_or_404(post.user_id)
+
+    return render_template("postdetail.html", post = post, user = user)
 
 @app.get("/posts/<int:post_id>/edit")
 def edit_post(post_id):
     """Show a form to edit post"""
 
-    return render_template("editpost.html")
+    post = Post.query.get_or_404(post_id)
+    user = User.query.get_or_404(post.user_id)
 
-# @app.post("/posts/<int:post_id>/edit")
-# def get_post_edits(post_id):
-#     """Get edit post information and redirect to post view"""
+    return render_template("editpost.html", post = post, user = user)
 
-#     return redirect("/posts/<post_id>")
+@app.post("/posts/<int:post_id>/edit")
+def get_post_edits(post_id):
+    """Get edit post information and redirect to post view"""
 
-# @app.post("/posts/<int:post_id>/delete")
-# def delete_post(post_id):
-#     """Delete the post and redirect to user page"""
+    post = Post.query.get(post_id)
 
-#     return redirect("/users/<int:user_id>")
+    post.title = request.form['title']
+    post.content =  request.form['post-content']
+
+    db.session.add(post)
+    db.session.commit()
+
+    return redirect(f"/posts/{post_id}")
+
+@app.post("/posts/<int:post_id>/delete")
+def delete_post(post_id):
+    """Delete the post and redirect to user page"""
+
+    post = Post.query.get(post_id)
+    user_id = post.user_id
+
+    db.session.delete(post)
+    db.session.commit()
+
+
+    return redirect(f"/users/{user_id}")

@@ -5,23 +5,23 @@
 {% block content %}
 
   <h1>{{post.title}}</h1>
-
+  <br>
   <div>
     {{ post.content }}
   </div>
-
+  <br>
   <div>
      By {{ user.first_name }} {{ user.last_name }}
   </div>
-
+  <br>
   <a href="/users/{{user.id}}">Cancel</a>
-
+  <br>
   <form action="/posts/{{post.id}}/edit" method = "GET">
     <button>
       Edit
     </button>
   </form>
-
+  <br>
   <form action="/posts/{{post.id}}/delete" method = "POST">
     <button>
       Delete
